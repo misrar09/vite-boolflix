@@ -1,5 +1,6 @@
 <script>
 import { store } from "../store";
+import axios from 'axios';
 export default {
     name: "AppHeader",
 
@@ -13,33 +14,39 @@ export default {
     },
     data() {
         return {
-            movieName: "",
             store,
+            axios
 
         }
     },
     methods: {
 
-        /*     movieApiRequest() {
-              const options = {
+        movieApiRequest() {
+
+            const options = {
                 method: 'GET',
                 url: 'https://api.themoviedb.org/3/search/movie',
-                params: { query: 'lucy', include_adult: 'false', language: 'it-IT', page: '1' },
+                params: { query: encodeURIComponent(this.store.userQuery).replace(/%20/g, '+'), include_adult: 'false', language: 'it-IT', page: '1' },
                 headers: {
-                  accept: 'application/json',
-                  Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNWJmOTFhNDhjZTdmN2QyNDJiOGVmNzU2NDMxZmQzNCIsInN1YiI6IjY1NmRiMWJlNjUxN2Q2MDE1MTY2M2MxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8vPmdgIX7kIXK4EhrhKYFW1lPL1m4zu8Do_v3pt3ZFA'
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNWJmOTFhNDhjZTdmN2QyNDJiOGVmNzU2NDMxZmQzNCIsInN1YiI6IjY1NmRiMWJlNjUxN2Q2MDE1MTY2M2MxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8vPmdgIX7kIXK4EhrhKYFW1lPL1m4zu8Do_v3pt3ZFA'
                 }
-              };
-        
-              axios
+            };
+
+            console.log(options);
+
+            axios
                 .request(options)
                 .then(function (response) {
-                  console.log(response.data);
+                    console.log(response.data);
+                    store.resultList = response.data
                 })
                 .catch(function (error) {
-                  console.error(error);
+                    console.error(error);
                 });
-            } */
+
+
+        }
 
 
     },
@@ -51,10 +58,14 @@ export default {
     <div class="header">
         <h2>BoolFlix</h2>
         <div>
-            <input class="search_box" type="text" v-model="movieName">
-            <h1>{{ encodeURI(movieName) }}</h1>
-            <button class="search_btn" @click="">Search</button>
+            <input class="search_box" type="text" v-model="store.userQuery">
+            <button class="search_btn" @click="movieApiRequest">Search</button>
         </div>
+    </div>
+
+    <div v-for="item in store.resultList">
+        <p>{{ item }}</p>
+
     </div>
 </template>
 

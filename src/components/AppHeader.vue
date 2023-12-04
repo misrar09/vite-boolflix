@@ -50,6 +50,10 @@ export default {
 
 
     },
+
+    mounted() {
+        console.log(this.store.resultList);
+    }
 }
 
 </script>
@@ -63,8 +67,14 @@ export default {
         </div>
     </div>
 
-    <div v-for="item in store.resultList">
-        <p>{{ item }}</p>
+    <div class="all_cards" v-for="item in store.resultList.results">
+        <div class="card">
+            <p>{{ item.title }}</p>
+            <p>{{ item.original_title }}</p>
+            <p>{{ item.original_language }}</p>
+            <p>{{ item.vote_count }}</p>
+
+        </div>
 
     </div>
 </template>
@@ -92,6 +102,15 @@ export default {
 
 h2 {
     text-align: center;
-    color: rgb(255, 255, 255);
+    color: rgb(235, 117, 117);
+}
+
+.all_cards {
+    display: flex;
+}
+
+.card {
+    margin: 1rem;
+    background-color: aquamarine;
 }
 </style>

@@ -10,29 +10,40 @@ export default {
         "vote_count"
     ],
     components: {
-
     },
     data() {
         return {
             store,
-            axios
+            axios,
+
         }
     },
+
     methods: {
+        flagImagePath() {
+            let flagMapping = {
+                en: '/flags/us.svg',
+                it: '/flags/it.svg',
+                de: '/flags/de.svg',
+                fr: '/flags/fr.svg',
+                es: '/flags/es.svg',
+            };
 
+            return flagMapping[this.original_language];
+        },
     }
-
 }
 
 </script>
-
 <template>
     <div class="all_cards">
         <div class=" card">
-            <p>{{ title }}</p>
-            <p>{{ original_title }}</p>
-            <p>{{ original_language }}</p>
-            <p>{{ vote_count }}</p>
+            <ul>
+                <li>{{ title }}</li>
+                <li>{{ original_title }}</li>
+                <li><img :src="flagImagePath()" alt=""></li>
+                <li>{{ vote_count }}</li>
+            </ul>
         </div>
 
     </div>
@@ -46,5 +57,13 @@ export default {
 .card {
     margin: 1rem;
     background-color: aquamarine;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    width: 2rem;
 }
 </style>

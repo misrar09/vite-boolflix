@@ -1,11 +1,13 @@
 <script>
-import AppCards from "./components/AppCards.vue"
+import AppCardsMovies from "./components/AppCardsMovies.vue"
+import AppCardsTv from "./components/AppCardsTv.vue"
 import { store } from "./store";
 import axios from 'axios';
 
 export default {
   components: {
-    AppCards
+    AppCardsMovies,
+    AppCardsTv,
   },
   data() {
     return {
@@ -19,22 +21,54 @@ export default {
       const options = {
         method: 'GET',
         url: 'https://api.themoviedb.org/3/search/movie',
-        params: { query: encodeURIComponent(this.store.userQuery).replace(/%20/g, '+'), include_adult: 'false', language: 'it-IT', page: '1' },
+        params: {
+          query: this.store.userQuery, include_adult: 'false', language: 'it-IT', page: '1',
+          api_key: 'b5bf91a48ce7f7d242b8ef756431fd34',
+        },
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNWJmOTFhNDhjZTdmN2QyNDJiOGVmNzU2NDMxZmQzNCIsInN1YiI6IjY1NmRiMWJlNjUxN2Q2MDE1MTY2M2MxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8vPmdgIX7kIXK4EhrhKYFW1lPL1m4zu8Do_v3pt3ZFA'
         }
       };
       axios
         .request(options)
         .then(function (response) {
-          store.resultList = response.data
-          console.log(response.data);
+          store.moviesResultList = response.data
+          console.log("movies", response.data);
         })
         .catch(function (error) {
           console.error(error);
         });
     },
+
+    tvApiRequest() {
+
+      const options = {
+        method: 'GET',
+        url: 'https://api.themoviedb.org/3/search/tv',
+        params: {
+          query: this.store.userQuery, include_adult: 'false', language: 'en-US', page: '1',
+          api_key: 'b5bf91a48ce7f7d242b8ef756431fd34',
+        },
+        headers: {
+          accept: 'application/json',
+        }
+      };
+
+      axios
+        .request(options)
+        .then(function (response) {
+          store.tvResultList = response.data
+          console.log("series", response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+
+    getAllResults() {
+      this.movieApiRequest()
+      this.tvApiRequest()
+    }
 
   },
 }
@@ -47,18 +81,32 @@ export default {
       <h2>BoolFlix</h2>
       <div>
         <input class="search_box" type="text" v-model="store.userQuery">
-        <button class="search_btn" @click="movieApiRequest">Search</button>
+        <button class="search_btn" @click="getAllResults">Search</button>
       </div>
     </div>
 
   </header>
 
   <main>
-    <AppCards v-for="item in store.resultList.results" :title="item.title" :original_title="item.original_title"
-      :original_language="item.original_language" :vote_count="item.vote_count" />
+    <h3>Movies</h3>
+    <div class="movies">
+      <AppCardsMovies v-for="item in store.moviesResultList.results" :title="item.title"
+        :original_title="item.original_title" :original_language="item.original_language"
+        :vote_average="item.vote_average" :poster_path="item.poster_path" />
+    </div>
+    <h3>Series</h3>
+    <div class="series">
+      <AppCardsTv v-for="item in store.tvResultList.results" :name="item.name" :original_name="item.original_name"
+        :original_language="item.original_language" :vote_average="item.vote_average" />
+    </div>
   </main>
 </template>
-<style scoped>
+
+<style lang="scss">
+@use "./styles/general.scss";
+</style>
+
+<style lang="scss" scoped>
 .header {
   height: 5rem;
   background-color: crimson;
@@ -82,5 +130,14 @@ export default {
 h2 {
   text-align: center;
   color: rgb(235, 117, 117);
+}
+
+
+.movies {
+  display: flex;
+}
+
+.series {
+  display: flex;
 }
 </style>

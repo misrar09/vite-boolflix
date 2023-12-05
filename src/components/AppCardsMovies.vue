@@ -77,12 +77,14 @@ export default {
         </div>
         <div class=" card">
             <ul>
-                <li>{{ title }}</li>
-                <li v-if="original_title != title">{{ original_title }}</li>
-                <li><img :src="flagImagePath()" alt=""></li>
-                <li>{{ convertToInteger(vote_average) }}</li>
+                <li><strong>Title:</strong>{{ title }}</li>
+                <li v-if="original_title != title"><strong>Original Title:</strong>{{ original_title }}</li>
+                <li>
+                    <p><strong>Original Language</strong></p><img :src="flagImagePath()" alt="">
+                </li>
+                <li><strong>Rating:</strong>{{ convertToInteger(vote_average) }}</li>
                 <li v-html="printStars()"></li>
-                <li>{{ overview }}</li>
+                <li><strong>Overview:</strong>{{ overview }}</li>
             </ul>
         </div>
 
@@ -98,13 +100,16 @@ export default {
 }
 
 .all_movie_cards:hover .card {
-
     visibility: visible;
+}
+
+.all_movie_cards:hover .cover {
+    opacity: 0.2;
 }
 
 .card {
     /* margin: 1rem; */
-    background-color: aquamarine;
+
     width: 342px;
     height: 513px;
     position: absolute;
@@ -130,5 +135,13 @@ li {
 
 .card img {
     width: 2rem;
+}
+
+strong {
+    padding-right: 0.25rem;
+}
+
+p {
+    padding-bottom: 0.2rem;
 }
 </style>

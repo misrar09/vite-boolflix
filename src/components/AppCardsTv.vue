@@ -78,12 +78,15 @@ export default {
         </div>
         <div class=" card_tv">
             <ul>
-                <li>{{ name }}</li>
-                <li v-if="original_name != name">{{ original_name }}</li>
-                <li><img :src="flagImagePath()" alt=""></li>
-                <li>{{ convertToInteger(vote_average) }}</li>
-                <li v-html="printStars()"></li>
-                <li>{{ overview }}</li>
+                <li class="name"><strong>Name:</strong> {{ name }}</li>
+                <li class="original_name" v-if="original_name != name"><strong>Original Name:</strong>{{ original_name }}
+                </li>
+                <li class="flag">
+                    <p><strong>Orignial Language</strong></p><img :src="flagImagePath()" alt="">
+                </li>
+                <li class="vote"><strong>Ratings:</strong>{{ convertToInteger(vote_average) }}</li>
+                <li class="star" v-html="printStars()"></li>
+                <li class="overview"><strong>Overview:</strong>{{ overview }}</li>
             </ul>
         </div>
 
@@ -102,8 +105,12 @@ export default {
     visibility: visible;
 }
 
+.all_tv_cards:hover .cover {
+    opacity: 0.2;
+}
+
 .card_tv {
-    background-color: aquamarine;
+
     width: 342px;
     height: 513px;
     position: absolute;
@@ -130,5 +137,24 @@ li {
 .card_tv img {
     width: 2rem;
 }
+
+strong {
+    padding-right: 0.25rem;
+}
+
+p {
+    padding-bottom: 0.2rem;
+}
+
+.name {}
+
+.original_name {}
+
+
+.flag .vote {}
+
+.star {}
+
+.overview {}
 </style>
 

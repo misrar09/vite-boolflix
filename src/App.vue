@@ -80,7 +80,8 @@ export default {
     <div class="header">
       <h2>BoolFlix</h2>
       <div>
-        <input class="search_box" type="text" v-model="store.userQuery">
+        <input class="search_box" type="text" placeholder="Search Movies/Series Here...." v-model="store.userQuery"
+          @keyup.enter="getAllResults">
         <button class="search_btn" @click="getAllResults">Search</button>
       </div>
     </div>
@@ -88,13 +89,14 @@ export default {
   </header>
 
   <main>
-    <h3>Movies</h3>
+
+    <h3 class="category">Movies</h3>
     <div class="movies">
       <AppCardsMovies v-for="item in store.moviesResultList.results" :title="item.title"
         :original_title="item.original_title" :original_language="item.original_language"
         :vote_average="item.vote_average" :poster_path="item.poster_path" :overview="item.overview" />
     </div>
-    <h3>Series</h3>
+    <h3 class="category">Series</h3>
     <div class="series">
       <AppCardsTv v-for="item in store.tvResultList.results" :name="item.name" :original_name="item.original_name"
         :original_language="item.original_language" :vote_average="item.vote_average" :poster_path="item.poster_path"
@@ -130,21 +132,26 @@ export default {
 
 h2 {
   text-align: center;
-  color: rgb(235, 117, 117);
+  color: rgb(250, 206, 206);
+  margin-left: 2rem;
+}
+
+.category {
+  height: 4rem;
+  font-size: 3.5rem;
+  text-align: center;
+  margin: 1rem;
 }
 
 
-.movies {
-  display: flex;
-  gap: 50px;
-  width: 100vw;
-  overflow-x: auto;
-}
-
+.movies,
 .series {
   display: flex;
-  gap: 50px;
+  gap: 40px;
   width: 100vw;
+  height: 38rem;
   overflow-x: auto;
+  overflow-y: hidden;
+  margin: 1rem;
 }
 </style>

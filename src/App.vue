@@ -92,12 +92,13 @@ export default {
     <div class="movies">
       <AppCardsMovies v-for="item in store.moviesResultList.results" :title="item.title"
         :original_title="item.original_title" :original_language="item.original_language"
-        :vote_average="item.vote_average" :poster_path="item.poster_path" />
+        :vote_average="item.vote_average" :poster_path="item.poster_path" :overview="item.overview" />
     </div>
     <h3>Series</h3>
     <div class="series">
       <AppCardsTv v-for="item in store.tvResultList.results" :name="item.name" :original_name="item.original_name"
-        :original_language="item.original_language" :vote_average="item.vote_average" :poster_path="item.poster_path" />
+        :original_language="item.original_language" :vote_average="item.vote_average" :poster_path="item.poster_path"
+        :overview="item.overview" />
     </div>
   </main>
 </template>

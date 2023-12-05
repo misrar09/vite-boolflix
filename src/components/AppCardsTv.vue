@@ -8,7 +8,8 @@ export default {
         "original_name",
         "original_language",
         "vote_average",
-        "poster_path"
+        "poster_path",
+        "overview"
     ],
     components: {
     },
@@ -43,11 +44,13 @@ export default {
                 zh: '/flags/cn.svg',
                 tl: '/flags/ph.svg',
                 ur: '/flags/pk.svg',
+                default: '/flags/default.svg',
+
 
 
             };
 
-            return flagMapping[this.original_language];
+            return flagMapping[this.original_language] || flagMapping['default'];
         },
 
         convertToInteger(voteAverage) {
@@ -80,6 +83,7 @@ export default {
                 <li><img :src="flagImagePath()" alt=""></li>
                 <li>{{ convertToInteger(vote_average) }}</li>
                 <li v-html="printStars()"></li>
+                <li>{{ overview }}</li>
             </ul>
         </div>
 

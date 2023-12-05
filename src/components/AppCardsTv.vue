@@ -7,7 +7,8 @@ export default {
         "name",
         "original_name",
         "original_language",
-        "vote_average"
+        "vote_average",
+        "poster_path"
     ],
     components: {
     },
@@ -15,6 +16,16 @@ export default {
         return {
             store,
             axios,
+            posterURL: 'https://image.tmdb.org/t/p/',
+            poster_sizes: [
+                "w92",
+                "w154",
+                "w185",
+                "w342",
+                "w500",
+                "w780",
+                "original"
+            ],
 
         }
     },
@@ -44,6 +55,10 @@ export default {
 </script>
 <template>
     <div class="all_tv_cards">
+        <div class="cover">
+            <img v-if="poster_path != null" :src="posterURL + poster_sizes[3] + poster_path" alt="">
+            <div class="not_found" v-else><span>Poster not found!</span></div>
+        </div>
         <div class=" card_tv">
             <ul>
                 <li>{{ name }}</li>
@@ -58,13 +73,23 @@ export default {
 
 <style scoped>
 .all_tv_cards {
-    display: flex;
+    width: 342px;
+    height: 513px;
+    position: relative;
+}
+
+.all_tv_cards:hover .card_tv {
+
+    visibility: visible;
 }
 
 .card_tv {
-    margin: 1rem;
     background-color: aquamarine;
-    width: 10rem;
+    width: 342px;
+    height: 513px;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
 }
 
 ul {
@@ -75,7 +100,7 @@ li {
     padding: 0.5rem;
 }
 
-img {
+.card_tv img {
     width: 2rem;
 }
 </style>

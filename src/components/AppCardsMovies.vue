@@ -53,11 +53,11 @@ export default {
 
 </script>
 <template>
-    <div class="cover">
-        <img v-if="poster_path != null" :src="posterURL + poster_sizes[3] + poster_path" alt="">
-        <h2 v-else>Backdrop not found!</h2>
-    </div>
     <div class="all_movie_cards">
+        <div class="cover">
+            <img v-if="poster_path != null" :src="posterURL + poster_sizes[3] + poster_path" alt="">
+            <div class="not_found" v-else><span>Poster not found!</span></div>
+        </div>
         <div class=" card">
             <ul>
                 <li>{{ title }}</li>
@@ -72,14 +72,37 @@ export default {
 
 <style scoped>
 .all_movie_cards {
-    display: flex;
+    /*     display: flex; */
+    width: 342px;
+    height: 513px;
+    position: relative;
+}
+
+.all_movie_cards:hover .card {
+
+    visibility: visible;
 }
 
 .card {
-    margin: 1rem;
+    /* margin: 1rem; */
     background-color: aquamarine;
-    width: 10rem;
+    width: 342px;
+    height: 513px;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
 }
+
+.cover {}
+
+.not_found {
+    width: 342px;
+    height: 513px;
+    text-align: center;
+    font-size: 5rem;
+    background-color: aquamarine;
+}
+
 
 ul {
     list-style: none;

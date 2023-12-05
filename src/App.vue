@@ -97,7 +97,7 @@ export default {
     <h3>Series</h3>
     <div class="series">
       <AppCardsTv v-for="item in store.tvResultList.results" :name="item.name" :original_name="item.original_name"
-        :original_language="item.original_language" :vote_average="item.vote_average" />
+        :original_language="item.original_language" :vote_average="item.vote_average" :poster_path="item.poster_path" />
     </div>
   </main>
 </template>
@@ -135,9 +135,15 @@ h2 {
 
 .movies {
   display: flex;
+  gap: 50px;
+  width: 100vw;
+  overflow-x: auto;
 }
 
 .series {
   display: flex;
+  gap: 50px;
+  width: 100vw;
+  overflow-x: auto;
 }
 </style>

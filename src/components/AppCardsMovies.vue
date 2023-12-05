@@ -48,6 +48,21 @@ export default {
             return flagMapping[this.original_language];
         },
 
+        convertToInteger(voteAverage) {
+            const scaledValue = (voteAverage - 1) * (5 / 9) + 1;
+            const roundedValue = Math.round(scaledValue);
+            return Math.min(5, Math.max(1, roundedValue));
+        },
+
+        printStars() {
+            let stars = "";
+            for (let i = 0; i < this.convertToInteger(this.vote_average); i++) {
+                stars += '<i class="fa-solid fa-star" style="color: #fad000;"></i>';
+            }
+            return stars
+        }
+
+
     }
 }
 
@@ -63,7 +78,8 @@ export default {
                 <li>{{ title }}</li>
                 <li v-if="original_title != title">{{ original_title }}</li>
                 <li><img :src="flagImagePath()" alt=""></li>
-                <li>{{ vote_average }}</li>
+                <li>{{ convertToInteger(vote_average) }}</li>
+                <li v-html="printStars()"></li>
             </ul>
         </div>
 
@@ -100,9 +116,8 @@ export default {
     height: 513px;
     text-align: center;
     font-size: 5rem;
-    background-color: aquamarine;
+    background-color: crimson;
 }
-
 
 ul {
     list-style: none;

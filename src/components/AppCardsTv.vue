@@ -92,6 +92,14 @@ export default {
     visibility: hidden;
 }
 
+.not_found {
+    width: 342px;
+    height: 513px;
+    text-align: center;
+    font-size: 5rem;
+    background-color: crimson;
+}
+
 ul {
     list-style: none;
 }

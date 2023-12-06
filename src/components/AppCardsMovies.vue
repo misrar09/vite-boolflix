@@ -50,6 +50,7 @@ export default {
             return flagMapping[this.original_language] || flagMapping["default"];
         },
 
+        //Method to convert the voting range which is a decimal value from 1-10 to 1-5 in integer value
         convertToInteger(voteAverage) {
             const scaledValue = (voteAverage - 1) * (5 / 9) + 1;
             const roundedValue = Math.round(scaledValue);
@@ -63,8 +64,6 @@ export default {
             }
             return stars
         }
-
-
     }
 }
 

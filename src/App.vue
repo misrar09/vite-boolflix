@@ -1,13 +1,15 @@
 <script>
-import AppCardsMovies from "./components/AppCardsMovies.vue"
-import AppCardsTv from "./components/AppCardsTv.vue"
+/* import AppCardsMovies from "./components/AppCardsMovies.vue"
+import AppCardsTv from "./components/AppCardsTv.vue" */
+import AppCards from "./components/AppCardsTv.vue"
 import { store } from "./store";
 import axios from 'axios';
 
 export default {
   components: {
-    AppCardsMovies,
-    AppCardsTv,
+    /*     AppCardsMovies,
+        AppCardsTv, */
+    AppCards
   },
   data() {
     return {
@@ -92,13 +94,13 @@ export default {
 
     <h3 class="category">Movies</h3>
     <div class="movies">
-      <AppCardsMovies v-for="item in store.moviesResultList.results" :title="item.title"
-        :original_title="item.original_title" :original_language="item.original_language"
-        :vote_average="item.vote_average" :poster_path="item.poster_path" :overview="item.overview" />
+      <AppCards v-for="item in store.moviesResultList.results" :title="item.title" :original_title="item.original_title"
+        :original_language="item.original_language" :vote_average="item.vote_average" :poster_path="item.poster_path"
+        :overview="item.overview" />
     </div>
     <h3 class="category">Series</h3>
     <div class="series">
-      <AppCardsTv v-for="item in store.tvResultList.results" :name="item.name" :original_name="item.original_name"
+      <AppCards v-for="item in store.tvResultList.results" :name="item.name" :original_name="item.original_name"
         :original_language="item.original_language" :vote_average="item.vote_average" :poster_path="item.poster_path"
         :overview="item.overview" />
     </div>
@@ -141,6 +143,7 @@ h2 {
   font-size: 3.5rem;
   text-align: center;
   margin: 1rem;
+  background-color: rgb(128, 0, 43);
 }
 
 

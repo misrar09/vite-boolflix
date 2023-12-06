@@ -5,10 +5,16 @@ import axios from 'axios';
 export default {
   name: "AppCards",
   props: [
+    "title",
+    "original_title",
+    "name",
+    "original_name",
+
     "original_language",
     "vote_average",
     "poster_path",
     "overview",
+    "actor_names",
   ],
   data() {
     return {
@@ -84,6 +90,8 @@ export default {
         <li class="vote"><strong>Ratings:</strong>{{ convertToInteger(vote_average) }}</li>
         <li class="star" v-html="printStars()"></li>
         <li class="overview"><strong>Overview:</strong>{{ overview }}</li>
+
+        <!-- <li class="actors"><strong>Cast:</strong>{{ actor_names }}</li> -->
       </ul>
     </div>
   </div>

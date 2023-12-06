@@ -1,7 +1,7 @@
 <script>
 /* import AppCardsMovies from "./components/AppCardsMovies.vue"
 import AppCardsTv from "./components/AppCardsTv.vue" */
-import AppCards from "./components/AppCardsTv.vue"
+import AppCards from "./components/AppCards.vue"
 import { store } from "./store";
 import axios from 'axios';
 
@@ -43,7 +43,6 @@ export default {
     },
 
     tvApiRequest() {
-
       const options = {
         method: 'GET',
         url: 'https://api.themoviedb.org/3/search/tv',
@@ -67,10 +66,37 @@ export default {
         });
     },
 
+    /*     personApiResult() {
+          const options = {
+            method: 'GET',
+            url: 'https://api.themoviedb.org/3/search/person',
+            params: {
+              query: this.store.userQuery, include_adult: 'false', language: 'en-US', page: '1',
+              api_key: 'b5bf91a48ce7f7d242b8ef756431fd34',
+            },
+            headers: {
+              accept: 'application/json',
+            }
+          };
+    
+          axios
+            .request(options)
+            .then(function (response) {
+              store.personResultList = response.data
+              console.log("cast", response.data);
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+        }, */
+
     getAllResults() {
       this.movieApiRequest()
       this.tvApiRequest()
-    }
+      /* this.personApiResult() */
+    },
+
+
 
   },
 }
@@ -89,14 +115,13 @@ export default {
     </div>
 
   </header>
-
   <main>
-
     <h3 class="category">Movies</h3>
     <div class="movies">
       <AppCards v-for="item in store.moviesResultList.results" :title="item.title" :original_title="item.original_title"
         :original_language="item.original_language" :vote_average="item.vote_average" :poster_path="item.poster_path"
         :overview="item.overview" />
+      <!-- <AppCards v-for="item in store.personResultList.results" :actor_names="item.name" /> -->
     </div>
     <h3 class="category">Series</h3>
     <div class="series">

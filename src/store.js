@@ -4,6 +4,7 @@ export const store = reactive({
 
     userQuery: "",
     moviesResultList: [],
-    tvResultList: []
+    tvResultList: [],
+    personResultList: [],
 
 });

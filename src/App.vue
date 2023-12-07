@@ -59,7 +59,7 @@ export default {
         .request(options)
         .then(function (response) {
           store.tvResultList = response.data
-          console.log("series", response.data);
+          console.log("series tv", response.data);
         })
         .catch(function (error) {
           console.error(error);

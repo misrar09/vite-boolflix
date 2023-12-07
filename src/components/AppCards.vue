@@ -9,7 +9,6 @@ export default {
     "original_title",
     "name",
     "original_name",
-
     "original_language",
     "vote_average",
     "poster_path",
@@ -78,10 +77,10 @@ export default {
 
         <!-- Movie Cards -->
         <li v-if="title"><strong>Title:</strong>{{ title }}</li>
-        <li v-if="original_title && original_title !== title"><strong>Original Title:</strong>{{ original_title }}</li>
+        <li v-if="original_title !== title"><strong>Original Title:</strong>{{ original_title }}</li>
         <!-- TV Cards -->
         <li v-if="name" class="name"><strong>Name:</strong> {{ name }}</li>
-        <li v-if="original_name && original_name !== name" class="original_name"><strong>Original Name:</strong>{{
+        <li v-if="original_name !== name" class="original_name"><strong>Original Name:</strong>{{
           original_name }}</li>
         <!-- Common  -->
         <li class="flag">

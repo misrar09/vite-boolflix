@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     movieApiRequest() {
-      console.log("Query before request:", store.userQuery);
       const options = {
         method: 'GET',
         url: 'https://api.themoviedb.org/3/search/movie',
@@ -34,20 +33,9 @@ export default {
       };
       axios
         .request(options)
-        .then(response => {
-          console.log("Response:", response.data);
-
-          store.moviesResultList = response.data;
-          store.movie_id = response.data.results.map(result => result.id);
-
+        .then(function (response) {
+          store.moviesResultList = response.data
           console.log("movies", response.data);
-          console.log("movies id", store.movie_id);
-
-
-
-
-          console.log("movies", response.data);
-          console.log("movies id", store.movie_id);
         })
         .catch(function (error) {
           console.error(error);
@@ -78,34 +66,34 @@ export default {
         });
     },
 
-    personApiResult(movie_id) {
-      const options = {
-        method: 'GET',
-        url: `https://api.themoviedb.org/3/movie/${movie_id}/credits`,
-        params: { language: 'en-US' },
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNWJmOTFhNDhjZTdmN2QyNDJiOGVmNzU2NDMxZmQzNCIsInN1YiI6IjY1NmRiMWJlNjUxN2Q2MDE1MTY2M2MxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8vPmdgIX7kIXK4EhrhKYFW1lPL1m4zu8Do_v3pt3ZFA'
-        }
-      };
-
-      axios
-        .request(options)
-        .then(function (response) {
-          firstFiveActors = response.data.cast.slice(0, 5)
-          this.store.movie_id.forEach(movieId => this.personApiResult(movieId));
-          console.log("cast", firstFiveActors);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    },
+    /*     personApiResult() {
+          const options = {
+            method: 'GET',
+            url: 'https://api.themoviedb.org/3/search/person',
+            params: {
+              query: this.store.userQuery, include_adult: 'false', language: 'en-US', page: '1',
+              api_key: 'b5bf91a48ce7f7d242b8ef756431fd34',
+            },
+            headers: {
+              accept: 'application/json',
+            }
+          };
+    
+          axios
+            .request(options)
+            .then(function (response) {
+              store.personResultList = response.data
+              console.log("cast", response.data);
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+        }, */
 
     getAllResults() {
       this.movieApiRequest()
       this.tvApiRequest()
-      this.personApiResult()
-
+      /* this.personApiResult() */
     },
 
 
